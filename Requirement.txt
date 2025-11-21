@@ -1,0 +1,59 @@
+Title: Requirements for main.py (Maze Game)
+
+1. Purpose
+- main.py is the entry point for the Maze Game. It must initialize the game, 
+  parse command-line options, generate or load a maze, run the game loop, and exit cleanly.
+
+2. Environment
+- Python: 3.8+
+- Platform: Windows / macOS / Linux (cross-platform)
+
+3. Dependencies
+- pygame >= 2.0
+- numpy >= 1.21 (optional — used for maze arrays and pathfinding)
+- pillow (optional — image export)
+Specify these in requirements.txt if packaging:
+pygame>=2.0
+numpy>=1.21
+Pillow>=9.0
+
+4. Functional requirements
+- Accept CLI options:
+    - --size WIDTHxHEIGHT (maze cell dimensions)
+    - --seed SEED (deterministic generation)
+    - --load PATH (load maze from file)
+    - --save PATH (save generated maze)
+    - --mode [play|solve|demo]
+    - --fps N (frame rate)
+- Generate a solvable maze (perfect or braided depending on mode)
+- Render maze to a window with player, goal, and optionally solution path
+- Support keyboard controls for player movement (arrow keys / WASD)
+- Implement at least one pathfinding routine (BFS or A*)
+
+5. Non-functional requirements
+- Maintain stable 60 FPS by default (configurable)
+- Handle invalid input robustly with clear error messages
+- Log high-level events to console (start, load, save, errors)
+
+6. Inputs / Outputs
+- Inputs: CLI args, optional maze file (JSON / CSV), keyboard events
+- Outputs: game window, optional saved maze file, optional exported screenshot/image
+
+7. Exit codes
+- 0: normal exit
+- 1: invalid CLI usage
+- 2: dependency or runtime error
+
+8. Tests
+- Unit tests for maze generation validity (single path from start to goal)
+- Integration: start game, run for N frames without crashing
+
+9. Implementation notes
+- Keep main.py thin: use modules for maze generation, rendering, input, and pathfinding.
+- Provide a --help message describing CLI options.
+
+10. Example usage
+- python main.py --size 21x21 --mode play --fps 60
+- python main.py --load saved_maze.json --mode solve
+
+End of requirements.
